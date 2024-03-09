@@ -9,11 +9,12 @@ const transactionRequest_1 = require("hardhat/internal/core/jsonrpc/types/input/
 const validation_1 = require("hardhat/internal/core/jsonrpc/types/input/validation");
 const chainId_1 = require("hardhat/internal/core/providers/chainId");
 const utils_2 = require("./utils");
+const AWS_CONFIG = { region: process.env.AWS_DEFAULT_REGION || "ap-southeast-1" };
 class KMSSigner extends chainId_1.ProviderWrapperWithChainId {
     constructor(provider, kmsKeyId) {
         super(provider);
         this.kmsKeyId = kmsKeyId;
-        this.kmsInstance = new client_kms_1.KMSClient();
+        this.kmsInstance = new client_kms_1.KMSClient(AWS_CONFIG);
     }
     async request(args) {
         var _a, _b, _c;

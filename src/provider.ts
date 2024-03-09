@@ -12,6 +12,8 @@ import { EIP1193Provider, RequestArguments } from "hardhat/types";
 
 import { toHexString } from "./utils";
 
+const AWS_CONFIG = { region: process.env.AWS_DEFAULT_REGION || "ap-southeast-1" };
+
 export class KMSSigner extends ProviderWrapperWithChainId {
   public kmsKeyId: string;
   public kmsInstance: KMSClient;
@@ -20,7 +22,7 @@ export class KMSSigner extends ProviderWrapperWithChainId {
   constructor(provider: EIP1193Provider, kmsKeyId: string) {
     super(provider);
     this.kmsKeyId = kmsKeyId;
-    this.kmsInstance = new KMSClient();
+    this.kmsInstance = new KMSClient(AWS_CONFIG);
   }
 
   public async request(args: RequestArguments): Promise<unknown> {
