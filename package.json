@@ -10,7 +10,6 @@
     "type": "git",
     "url": "git+https://github.com/ADISAKBOONMARK/hardhat-kms-signer.git"
   },
-  "author": "Rumblefish Software Development",
   "license": "MIT",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
