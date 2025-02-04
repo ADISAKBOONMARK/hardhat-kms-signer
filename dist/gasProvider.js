@@ -31,13 +31,13 @@ class AutomaticGasPriceProvider extends wrapper_1.ProviderWrapper {
             (tx.maxFeePerGas !== undefined && tx.maxPriorityFeePerGas !== undefined)) {
             if (tx.maxFeePerGas !== undefined &&
                 this._minMaxFeePerGas !== undefined) {
-                const maxFeePerGasBN = base_types_1.rpcQuantityToBigInt(tx.maxFeePerGas);
-                tx.maxFeePerGas = base_types_1.numberToRpcQuantity(this._validateMinMaxGas(maxFeePerGasBN, this._minMaxFeePerGas));
+                const maxFeePerGasBN = (0, base_types_1.rpcQuantityToBigInt)(tx.maxFeePerGas);
+                tx.maxFeePerGas = (0, base_types_1.numberToRpcQuantity)(this._validateMinMaxGas(maxFeePerGasBN, this._minMaxFeePerGas));
             }
             if (tx.maxPriorityFeePerGas !== undefined &&
                 this._minMaxPriorityFeePerGas !== undefined) {
-                const maxPriorityFeePerGasBN = base_types_1.rpcQuantityToBigInt(tx.maxPriorityFeePerGas);
-                tx.maxPriorityFeePerGas = base_types_1.numberToRpcQuantity(this._validateMinMaxGas(maxPriorityFeePerGasBN, this._minMaxPriorityFeePerGas));
+                const maxPriorityFeePerGasBN = (0, base_types_1.rpcQuantityToBigInt)(tx.maxPriorityFeePerGas);
+                tx.maxPriorityFeePerGas = (0, base_types_1.numberToRpcQuantity)(this._validateMinMaxGas(maxPriorityFeePerGasBN, this._minMaxPriorityFeePerGas));
             }
             return this._wrappedProvider.request(args);
         }
@@ -46,7 +46,7 @@ class AutomaticGasPriceProvider extends wrapper_1.ProviderWrapper {
         if (tx.maxFeePerGas === undefined &&
             tx.maxPriorityFeePerGas === undefined &&
             suggestedEip1559Values === undefined) {
-            tx.gasPrice = base_types_1.numberToRpcQuantity(await this._getGasPrice());
+            tx.gasPrice = (0, base_types_1.numberToRpcQuantity)(await this._getGasPrice());
             return this._wrappedProvider.request(args);
         }
         // If eth_feeHistory failed, but the user still wants to send an EIP-1559 tx
@@ -59,10 +59,10 @@ class AutomaticGasPriceProvider extends wrapper_1.ProviderWrapper {
             };
         }
         let maxFeePerGas = tx.maxFeePerGas !== undefined
-            ? base_types_1.rpcQuantityToBigInt(tx.maxFeePerGas)
+            ? (0, base_types_1.rpcQuantityToBigInt)(tx.maxFeePerGas)
             : suggestedEip1559Values.maxFeePerGas;
         let maxPriorityFeePerGas = tx.maxPriorityFeePerGas !== undefined
-            ? base_types_1.rpcQuantityToBigInt(tx.maxPriorityFeePerGas)
+            ? (0, base_types_1.rpcQuantityToBigInt)(tx.maxPriorityFeePerGas)
             : suggestedEip1559Values.maxPriorityFeePerGas;
         if (this._minMaxFeePerGas) {
             maxFeePerGas = this._validateMinMaxGas(maxFeePerGas, this._minMaxFeePerGas);
@@ -73,15 +73,15 @@ class AutomaticGasPriceProvider extends wrapper_1.ProviderWrapper {
         if (maxFeePerGas < maxPriorityFeePerGas) {
             maxFeePerGas = maxFeePerGas + maxPriorityFeePerGas;
         }
-        tx.maxFeePerGas = base_types_1.numberToRpcQuantity(maxFeePerGas);
-        tx.maxPriorityFeePerGas = base_types_1.numberToRpcQuantity(maxPriorityFeePerGas);
+        tx.maxFeePerGas = (0, base_types_1.numberToRpcQuantity)(maxFeePerGas);
+        tx.maxPriorityFeePerGas = (0, base_types_1.numberToRpcQuantity)(maxPriorityFeePerGas);
         return this._wrappedProvider.request(args);
     }
     async _getGasPrice() {
         const response = (await this._wrappedProvider.request({
             method: "eth_gasPrice",
         }));
-        return base_types_1.rpcQuantityToBigInt(response);
+        return (0, base_types_1.rpcQuantityToBigInt)(response);
     }
     async _suggestEip1559FeePriceValues() {
         if (this._nodeSupportsEIP1559 === undefined) {
@@ -108,12 +108,12 @@ class AutomaticGasPriceProvider extends wrapper_1.ProviderWrapper {
                 // Each block increases the base fee by 1/8 at most, when full.
                 // We have the next block's base fee, so we compute a cap for the
                 // next N blocks here.
-                maxFeePerGas: base_types_1.rpcQuantityToBigInt(response.baseFeePerGas[1]) * (BigInt(9) ** (BigInt(AutomaticGasPriceProvider.EIP1559_BASE_FEE_MAX_FULL_BLOCKS_PREFERENCE -
+                maxFeePerGas: (0, base_types_1.rpcQuantityToBigInt)(response.baseFeePerGas[1]) * (BigInt(9) ** (BigInt(AutomaticGasPriceProvider.EIP1559_BASE_FEE_MAX_FULL_BLOCKS_PREFERENCE -
                     1)))
                     / (BigInt(8) ** (BigInt(AutomaticGasPriceProvider.EIP1559_BASE_FEE_MAX_FULL_BLOCKS_PREFERENCE -
                         1)))
-                    + (base_types_1.rpcQuantityToBigInt(response.reward[0][0])),
-                maxPriorityFeePerGas: base_types_1.rpcQuantityToBigInt(response.reward[0][0]),
+                    + ((0, base_types_1.rpcQuantityToBigInt)(response.reward[0][0])),
+                maxPriorityFeePerGas: (0, base_types_1.rpcQuantityToBigInt)(response.reward[0][0]),
             };
         }
         catch (_error) {

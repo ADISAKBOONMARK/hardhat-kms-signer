@@ -22,7 +22,7 @@ class KMSSigner extends chainId_1.ProviderWrapperWithChainId {
         const params = this._getParams(args);
         const sender = await this._getSender();
         if (method === "eth_sendTransaction") {
-            const [txRequest] = validation_1.validateParams(params, transactionRequest_1.rpcTransactionRequest);
+            const [txRequest] = (0, validation_1.validateParams)(params, transactionRequest_1.rpcTransactionRequest);
             const tx = await ethers_1.utils.resolveProperties(txRequest);
             const nonce = (_a = tx.nonce) !== null && _a !== void 0 ? _a : (await this._getNonce(sender));
             const baseTx = {
@@ -32,7 +32,7 @@ class KMSSigner extends chainId_1.ProviderWrapperWithChainId {
                 gasPrice: tx.gasPrice,
                 nonce: Number(nonce),
                 type: 2,
-                to: utils_2.toHexString(tx.to),
+                to: (0, utils_2.toHexString)(tx.to),
                 value: tx.value,
                 maxFeePerGas: (_b = tx.maxFeePerGas) === null || _b === void 0 ? void 0 : _b.toString(),
                 maxPriorityFeePerGas: (_c = tx.maxPriorityFeePerGas) === null || _c === void 0 ? void 0 : _c.toString(),
@@ -44,8 +44,8 @@ class KMSSigner extends chainId_1.ProviderWrapperWithChainId {
                 delete baseTx.maxPriorityFeePerGas;
             }
             const unsignedTx = ethers_1.utils.serializeTransaction(baseTx);
-            const hash = utils_1.keccak256(ethers_1.utils.arrayify(unsignedTx));
-            const sig = await eth_signer_kms_1.createSignature({
+            const hash = (0, utils_1.keccak256)(ethers_1.utils.arrayify(unsignedTx));
+            const sig = await (0, eth_signer_kms_1.createSignature)({
                 kmsInstance: this.kmsInstance,
                 keyId: this.kmsKeyId,
                 message: hash,
@@ -65,7 +65,7 @@ class KMSSigner extends chainId_1.ProviderWrapperWithChainId {
     }
     async _getSender() {
         if (!this.ethAddress) {
-            this.ethAddress = await eth_signer_kms_1.getEthAddressFromKMS({
+            this.ethAddress = await (0, eth_signer_kms_1.getEthAddressFromKMS)({
                 keyId: this.kmsKeyId,
                 kmsInstance: this.kmsInstance,
             });
