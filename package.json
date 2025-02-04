@@ -1,8 +1,15 @@
 {
-  "name": "@rumblefishdev/hardhat-kms-signer",
-  "version": "1.1.2",
+  "name": "@adisakboonmark//hardhat-kms-signer",
+  "version": "0.1.0-beta",
   "description": "Sign Hardhat deployment transactions using KMS key",
-  "repository": "github:rumblefishdev/hardhat-kms-signer",
+  "homepage": "https://github.com/ADISAKBOONMARK/hardhat-kms-signers#readme",
+  "bugs": {
+    "url": "https://github.com/ADISAKBOONMARK/hardhat-kms-signer/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ADISAKBOONMARK/hardhat-kms-signer.git"
+  },
   "author": "Rumblefish Software Development",
   "license": "MIT",
   "main": "dist/index.js",

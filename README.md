@@ -9,7 +9,7 @@ It's assumed that you have AWS access configured and your role perform kms:sign 
 In `hardhat.config.ts` do:
 
 ```
-import "@rumblefishdev/hardhat-kms-signer";
+import "@adisakboonmark/hardhat-kms-signer";
 
 ...
 
@@ -44,7 +44,7 @@ On less crowded networks (such as Sepolia) there may be situations where automat
 set minimal values for them in config:
 
 ```
-import "@rumblefishdev/hardhat-kms-signer";
+import "@adisakboonmark/hardhat-kms-signer";
 
 ...
 
